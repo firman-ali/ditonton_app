@@ -16,9 +16,9 @@ void main() {
     originalName: 'Original Name',
   );
 
-  final tTvSeries = TvSeries(
+  const tTvSeries = TvSeries(
     backdropPath: '/path.jpg',
-    genreIds: const [1, 2, 3],
+    genreIds: [1, 2, 3],
     id: 1,
     overview: 'Overview',
     popularity: 1,

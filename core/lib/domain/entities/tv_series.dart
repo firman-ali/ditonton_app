@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class TvSeries extends Equatable {
-  TvSeries({
+  const TvSeries({
     required this.posterPath,
     required this.popularity,
     required this.id,
@@ -15,24 +15,31 @@ class TvSeries extends Equatable {
     required this.originalName,
   });
 
-  TvSeries.watchlist({
+  const TvSeries.watchlist({
+    this.popularity,
+    this.backdropPath,
+    this.voteAverage,
+    this.genreIds,
+    this.originalLanguage,
+    this.voteCount,
+    this.originalName,
     required this.id,
     required this.overview,
     required this.posterPath,
     required this.name,
   });
 
-  late String? posterPath;
-  late double? popularity;
-  late int? id;
-  late String? backdropPath;
-  late double? voteAverage;
-  late String? overview;
-  late List<int>? genreIds;
-  late String? originalLanguage;
-  late int? voteCount;
-  late String? name;
-  late String? originalName;
+  final String? posterPath;
+  final double? popularity;
+  final int? id;
+  final String? backdropPath;
+  final double? voteAverage;
+  final String? overview;
+  final List<int>? genreIds;
+  final String? originalLanguage;
+  final int? voteCount;
+  final String? name;
+  final String? originalName;
 
   @override
   List<Object?> get props => [

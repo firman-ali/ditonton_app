@@ -23,10 +23,10 @@ void main() {
       });
   });
 
-  final tMovieModel = Movie(
+  const tMovieModel = Movie(
     adult: false,
     backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-    genreIds: const [14, 28],
+    genreIds: [14, 28],
     id: 557,
     originalTitle: 'Spider-Man',
     overview:

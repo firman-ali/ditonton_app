@@ -23,9 +23,9 @@ void main() {
       });
   });
 
-  final tTvModel = TvSeries(
+  const tTvModel = TvSeries(
     backdropPath: '/path.jpg',
-    genreIds: const [1, 2, 3],
+    genreIds: [1, 2, 3],
     id: 1,
     overview: 'Overview',
     popularity: 1.0,

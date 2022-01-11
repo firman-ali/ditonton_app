@@ -21,9 +21,9 @@ void main() {
       });
   });
 
-  final tTv = TvSeries(
+  const tTv = TvSeries(
     backdropPath: '/path.jpg',
-    genreIds: const [1, 2, 3],
+    genreIds: [1, 2, 3],
     id: 1,
     overview: 'Overview',
     popularity: 1.0,
