@@ -23,11 +23,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           ),
           Consumer<MovieListNotifier>(builder: (context, data, child) {
             final state = data.nowPlayingState;
-            if (state == RequestState.Loading) {
+            if (state == RequestState.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state == RequestState.Loaded) {
+            } else if (state == RequestState.isLoaded) {
               return MovieList(movies: data.nowPlayingMovies);
             } else {
               return const Text('Failed');
@@ -36,15 +36,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           _buildSubHeading(
             title: 'Popular',
             onTap: () =>
-                Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+                Navigator.pushNamed(context, PopularMoviesPage.routeName),
           ),
           Consumer<MovieListNotifier>(builder: (context, data, child) {
             final state = data.popularMoviesState;
-            if (state == RequestState.Loading) {
+            if (state == RequestState.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state == RequestState.Loaded) {
+            } else if (state == RequestState.isLoaded) {
               return MovieList(movies: data.popularMovies);
             } else {
               return const Text('Failed');
@@ -53,15 +53,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           _buildSubHeading(
             title: 'Top Rated',
             onTap: () =>
-                Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+                Navigator.pushNamed(context, TopRatedMoviesPage.routeName),
           ),
           Consumer<MovieListNotifier>(builder: (context, data, child) {
             final state = data.topRatedMoviesState;
-            if (state == RequestState.Loading) {
+            if (state == RequestState.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state == RequestState.Loaded) {
+            } else if (state == RequestState.isLoaded) {
               return MovieList(movies: data.topRatedMovies);
             } else {
               return const Text('Failed');
@@ -113,14 +113,14 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.ROUTE_NAME,
+                  MovieDetailPage.routeName,
                   arguments: movie.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+                  imageUrl: '$baseImageUrl${movie.posterPath}',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),

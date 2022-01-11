@@ -5,7 +5,7 @@ import 'package:search/presentation/providers/movie_search_notifier.dart';
 import 'package:search/presentation/providers/tv_search_notifier.dart';
 
 class SearchPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search';
+  static const routeName = '/search';
 
   const SearchPage({Key? key}) : super(key: key);
 
@@ -46,11 +46,11 @@ class SearchPage extends StatelessWidget {
                   children: [
                     Consumer<MovieSearchNotifier>(
                       builder: (context, data, child) {
-                        if (data.state == RequestState.Loading) {
+                        if (data.state == RequestState.isLoading) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
-                        } else if (data.state == RequestState.Loaded) {
+                        } else if (data.state == RequestState.isLoaded) {
                           final result = data.searchResult;
                           return ListView.builder(
                             padding: const EdgeInsets.all(8),
@@ -67,11 +67,11 @@ class SearchPage extends StatelessWidget {
                     ),
                     Consumer<TvSearchNotifier>(
                       builder: (context, data, child) {
-                        if (data.state == RequestState.Loading) {
+                        if (data.state == RequestState.isLoading) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
-                        } else if (data.state == RequestState.Loaded) {
+                        } else if (data.state == RequestState.isLoaded) {
                           final result = data.searchResult;
                           return ListView.builder(
                             padding: const EdgeInsets.all(8),

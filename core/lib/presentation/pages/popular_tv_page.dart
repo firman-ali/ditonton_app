@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PopularTvPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-tv';
+  static const routeName = '/popular-tv';
 
   const PopularTvPage({Key? key}) : super(key: key);
 
@@ -30,11 +30,11 @@ class _PopularTvPageState extends State<PopularTvPage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<PopularTvNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.state == RequestState.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.state == RequestState.isLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.tvSeries[index];

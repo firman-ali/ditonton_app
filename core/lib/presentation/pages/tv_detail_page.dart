@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tvdetail';
+  static const routeName = '/tvdetail';
 
   final int id;
   const TvDetailPage({Key? key, required this.id}) : super(key: key);
@@ -31,11 +31,11 @@ class _TvDetailPageState extends State<TvDetailPage> {
     return Scaffold(
       body: Consumer<TvDetailNotifier>(
         builder: (context, provider, child) {
-          if (provider.tvState == RequestState.Loading) {
+          if (provider.tvState == RequestState.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.tvState == RequestState.Loaded) {
+          } else if (provider.tvState == RequestState.isLoaded) {
             final tvSeries = provider.tvSeries;
             return SafeArea(
               child: TvDetailContent(
@@ -243,15 +243,15 @@ class TvDetailContent extends StatelessWidget {
                             Consumer<TvDetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
-                                    RequestState.Loading) {
+                                    RequestState.isLoading) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (data.recommendationState ==
-                                    RequestState.Error) {
+                                    RequestState.isError) {
                                   return Text(data.message);
                                 } else if (data.recommendationState ==
-                                    RequestState.Loaded) {
+                                    RequestState.isLoaded) {
                                   return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
@@ -264,7 +264,7 @@ class TvDetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvDetailPage.ROUTE_NAME,
+                                                TvDetailPage.routeName,
                                                 arguments: movie.id,
                                               );
                                             },

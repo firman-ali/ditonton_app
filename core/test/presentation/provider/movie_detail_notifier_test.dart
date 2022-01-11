@@ -78,13 +78,13 @@ void main() {
       verify(mockGetMovieRecommendations.execute(tId));
     });
 
-    test('should change state to Loading when usecase is called', () {
+    test('should change state to isLoading when usecase is called', () {
       // arrange
       _arrangeUsecase();
       // act
       provider.fetchMovieDetail(tId);
       // assert
-      expect(provider.movieState, RequestState.Loading);
+      expect(provider.movieState, RequestState.isLoading);
       expect(listenerCallCount, 1);
     });
 
@@ -94,7 +94,7 @@ void main() {
       // act
       await provider.fetchMovieDetail(tId);
       // assert
-      expect(provider.movieState, RequestState.Loaded);
+      expect(provider.movieState, RequestState.isLoaded);
       expect(provider.movie, testMovieDetail);
       expect(listenerCallCount, 3);
     });
@@ -106,7 +106,7 @@ void main() {
       // act
       await provider.fetchMovieDetail(tId);
       // assert
-      expect(provider.movieState, RequestState.Loaded);
+      expect(provider.movieState, RequestState.isLoaded);
       expect(provider.movieRecommendations, tMovies);
     });
   });
@@ -129,7 +129,7 @@ void main() {
       // act
       await provider.fetchMovieDetail(tId);
       // assert
-      expect(provider.recommendationState, RequestState.Loaded);
+      expect(provider.recommendationState, RequestState.isLoaded);
       expect(provider.movieRecommendations, tMovies);
     });
 
@@ -142,7 +142,7 @@ void main() {
       // act
       await provider.fetchMovieDetail(tId);
       // assert
-      expect(provider.recommendationState, RequestState.Error);
+      expect(provider.recommendationState, RequestState.isError);
       expect(provider.message, 'Failed');
     });
   });
@@ -220,7 +220,7 @@ void main() {
       // act
       await provider.fetchMovieDetail(tId);
       // assert
-      expect(provider.movieState, RequestState.Error);
+      expect(provider.movieState, RequestState.isError);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });

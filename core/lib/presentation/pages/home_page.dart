@@ -55,12 +55,12 @@ class _HomePageState extends State<HomePage> {
                 leading: const Icon(Icons.save_alt),
                 title: const Text('Watchlist'),
                 onTap: () {
-                  Navigator.pushNamed(context, WATCHLIST_ROUTE);
+                  Navigator.pushNamed(context, watchlistRoute);
                 },
               ),
               ListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, ABOUT_ROUTE);
+                  Navigator.pushNamed(context, aboutRoute);
                 },
                 leading: const Icon(Icons.info_outline),
                 title: const Text('About'),
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, SEARCH_ROUTE);
+                Navigator.pushNamed(context, searchRoute);
               },
               icon: const Icon(Icons.search),
             )

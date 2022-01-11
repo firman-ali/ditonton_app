@@ -24,19 +24,19 @@ class Movie extends Equatable {
     required this.title,
   });
 
-  bool? adult;
-  String? backdropPath;
-  List<int>? genreIds;
-  int id;
-  String? originalTitle;
-  String? overview;
-  double? popularity;
-  String? posterPath;
-  String? releaseDate;
-  String? title;
-  bool? video;
-  double? voteAverage;
-  int? voteCount;
+  late bool? adult;
+  late String? backdropPath;
+  late List<int>? genreIds;
+  late int id;
+  late String? originalTitle;
+  late String? overview;
+  late double? popularity;
+  late String? posterPath;
+  late String? releaseDate;
+  late String? title;
+  late bool? video;
+  late double? voteAverage;
+  late int? voteCount;
 
   @override
   List<Object?> get props => [

@@ -22,17 +22,17 @@ class TvSeries extends Equatable {
     required this.name,
   });
 
-  String? posterPath;
-  double? popularity;
-  int? id;
-  String? backdropPath;
-  double? voteAverage;
-  String? overview;
-  List<int>? genreIds;
-  String? originalLanguage;
-  int? voteCount;
-  String? name;
-  String? originalName;
+  late String? posterPath;
+  late double? popularity;
+  late int? id;
+  late String? backdropPath;
+  late double? voteAverage;
+  late String? overview;
+  late List<int>? genreIds;
+  late String? originalLanguage;
+  late int? voteCount;
+  late String? name;
+  late String? originalName;
 
   @override
   List<Object?> get props => [

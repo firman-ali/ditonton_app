@@ -2,7 +2,7 @@ import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
-const String BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 
 // text theme
 final kTextTheme = TextTheme(

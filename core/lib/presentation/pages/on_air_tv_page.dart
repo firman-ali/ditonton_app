@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OnAirTvPage extends StatefulWidget {
-  static const ROUTE_NAME = '/on-air-tv';
+  static const routeName = '/on-air-tv';
 
   const OnAirTvPage({Key? key}) : super(key: key);
 
@@ -29,11 +29,11 @@ class _OnAirTvPageState extends State<OnAirTvPage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<OnAirTvNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.state == RequestState.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.state == RequestState.isLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.tvSeries[index];

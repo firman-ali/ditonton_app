@@ -5,7 +5,7 @@ import 'package:watchlist/presentation/providers/watchlist_movie_notifier.dart';
 import 'package:watchlist/presentation/providers/watchlist_tv_notifier.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist';
+  static const routeName = '/watchlist';
 
   const WatchlistMoviesPage({Key? key}) : super(key: key);
 
@@ -59,11 +59,11 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: TabBarView(children: [
                   Consumer<WatchlistMovieNotifier>(
                     builder: (context, data, child) {
-                      if (data.watchlistState == RequestState.Loading) {
+                      if (data.watchlistState == RequestState.isLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (data.watchlistState == RequestState.Loaded) {
+                      } else if (data.watchlistState == RequestState.isLoaded) {
                         return ListView.builder(
                           itemBuilder: (context, index) {
                             final movie = data.watchlistMovies[index];
@@ -81,11 +81,11 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                   ),
                   Consumer<WatchlistTvNotifier>(
                     builder: (context, data, child) {
-                      if (data.watchlistState == RequestState.Loading) {
+                      if (data.watchlistState == RequestState.isLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (data.watchlistState == RequestState.Loaded) {
+                      } else if (data.watchlistState == RequestState.isLoaded) {
                         return ListView.builder(
                           itemBuilder: (context, index) {
                             final movie = data.watchlistTv[index];
