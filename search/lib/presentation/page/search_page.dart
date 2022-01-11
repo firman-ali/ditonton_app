@@ -7,6 +7,8 @@ import 'package:search/presentation/providers/tv_search_notifier.dart';
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
 
+  const SearchPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -54,7 +56,7 @@ class SearchPage extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             itemBuilder: (context, index) {
                               final movie = data.searchResult[index];
-                              return MovieCard(movie);
+                              return MovieCard(movie: movie);
                             },
                             itemCount: result.length,
                           );

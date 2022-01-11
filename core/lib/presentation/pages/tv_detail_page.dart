@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
-import 'package:core/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +8,7 @@ class TvDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/tvdetail';
 
   final int id;
-  TvDetailPage({required this.id});
+  const TvDetailPage({Key? key, required this.id}) : super(key: key);
 
   @override
   _TvDetailPageState createState() => _TvDetailPageState();
@@ -33,16 +32,16 @@ class _TvDetailPageState extends State<TvDetailPage> {
       body: Consumer<TvDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.tvState == RequestState.Loading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (provider.tvState == RequestState.Loaded) {
             final tvSeries = provider.tvSeries;
             return SafeArea(
               child: TvDetailContent(
-                tvSeries,
-                provider.tvRecommendations,
-                provider.isAddedToWatchlist,
+                tvDetail: tvSeries,
+                recommendations: provider.tvRecommendations,
+                isAddedWatchlist: provider.isAddedToWatchlist,
               ),
             );
           } else {
@@ -59,7 +58,12 @@ class TvDetailContent extends StatelessWidget {
   final List<TvSeries> recommendations;
   final bool isAddedWatchlist;
 
-  TvDetailContent(this.tvDetail, this.recommendations, this.isAddedWatchlist);
+  const TvDetailContent({
+    Key? key,
+    required this.tvDetail,
+    required this.recommendations,
+    required this.isAddedWatchlist,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,17 +73,17 @@ class TvDetailContent extends StatelessWidget {
         CachedNetworkImage(
           imageUrl: 'https://image.tmdb.org/t/p/w500${tvDetail.posterPath}',
           width: screenWidth,
-          placeholder: (context, url) => Center(
+          placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(
             builder: (context, scrollController) {
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
@@ -141,9 +145,9 @@ class TvDetailContent extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   isAddedWatchlist
-                                      ? Icon(Icons.check)
-                                      : Icon(Icons.add),
-                                  Text('Watchlist'),
+                                      ? const Icon(Icons.check)
+                                      : const Icon(Icons.add),
+                                  const Text('Watchlist'),
                                 ],
                               ),
                             ),
@@ -155,7 +159,7 @@ class TvDetailContent extends StatelessWidget {
                                 RatingBarIndicator(
                                   rating: tvDetail.voteAverage / 2,
                                   itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: kMikadoYellow,
                                   ),
@@ -164,7 +168,7 @@ class TvDetailContent extends StatelessWidget {
                                 Text('${tvDetail.voteAverage}')
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Overview',
                               style: kHeading6,
@@ -174,30 +178,30 @@ class TvDetailContent extends StatelessWidget {
                                   ? tvDetail.overview
                                   : 'There is no overview for this TV show',
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Information Season',
                               style: kHeading6,
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Row(
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.all(
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(8),
                                   ),
                                   child: CachedNetworkImage(
                                     height: 125,
                                     imageUrl:
                                         'https://image.tmdb.org/t/p/w500${tvDetail.posterPath}',
-                                    placeholder: (context, url) => Center(
+                                    placeholder: (context, url) => const Center(
                                       child: CircularProgressIndicator(),
                                     ),
                                     errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
+                                        const Icon(Icons.error),
                                   ),
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -231,7 +235,7 @@ class TvDetailContent extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -240,7 +244,7 @@ class TvDetailContent extends StatelessWidget {
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (data.recommendationState ==
@@ -248,7 +252,7 @@ class TvDetailContent extends StatelessWidget {
                                   return Text(data.message);
                                 } else if (data.recommendationState ==
                                     RequestState.Loaded) {
-                                  return Container(
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -265,20 +269,21 @@ class TvDetailContent extends StatelessWidget {
                                               );
                                             },
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
+                                              borderRadius:
+                                                  const BorderRadius.all(
                                                 Radius.circular(8),
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                     'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                                 placeholder: (context, url) =>
-                                                    Center(
+                                                    const Center(
                                                   child:
                                                       CircularProgressIndicator(),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        const Icon(Icons.error),
                                               ),
                                             ),
                                           ),
@@ -288,10 +293,8 @@ class TvDetailContent extends StatelessWidget {
                                     ),
                                   );
                                 } else {
-                                  return Container(
-                                    child: Text(
-                                        'There is not enough data to suggest any TV shows based on ${tvDetail.name}.'),
-                                  );
+                                  return Text(
+                                      'There is not enough data to suggest any TV shows based on ${tvDetail.name}.');
                                 }
                               },
                             ),
@@ -322,7 +325,7 @@ class TvDetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },

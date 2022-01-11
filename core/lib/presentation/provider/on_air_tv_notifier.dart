@@ -1,6 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/domain/entities/tv_series.dart';
-import 'package:core/domain/usecases/get_on_air_tv.dart';
 import 'package:flutter/foundation.dart';
 
 class OnAirTvNotifier extends ChangeNotifier {

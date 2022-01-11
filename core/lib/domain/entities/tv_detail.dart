@@ -2,7 +2,7 @@ import 'package:core/domain/entities/genre.dart';
 import 'package:equatable/equatable.dart';
 
 class TvDetail extends Equatable {
-  TvDetail({
+  const TvDetail({
     required this.backdropPath,
     required this.firstAirDate,
     required this.genres,

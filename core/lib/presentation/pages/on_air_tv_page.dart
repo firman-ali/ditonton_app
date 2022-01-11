@@ -1,11 +1,11 @@
 import 'package:core/core.dart';
-import 'package:core/presentation/provider/on_air_tv_notifier.dart';
-import 'package:core/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OnAirTvPage extends StatefulWidget {
   static const ROUTE_NAME = '/on-air-tv';
+
+  const OnAirTvPage({Key? key}) : super(key: key);
 
   @override
   _OnAirTvPageState createState() => _OnAirTvPageState();
@@ -23,14 +23,14 @@ class _OnAirTvPageState extends State<OnAirTvPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('On The Air Tv Show'),
+        title: const Text('On The Air Tv Show'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<OnAirTvNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.Loaded) {
@@ -43,7 +43,7 @@ class _OnAirTvPageState extends State<OnAirTvPage> {
               );
             } else {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(data.message),
               );
             }

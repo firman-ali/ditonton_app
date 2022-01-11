@@ -3,7 +3,7 @@ import 'package:core/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
 class TvDetailResponse extends Equatable {
-  TvDetailResponse({
+  const TvDetailResponse({
     required this.backdropPath,
     required this.firstAirDate,
     required this.genres,
@@ -103,26 +103,26 @@ class TvDetailResponse extends Equatable {
 
   TvDetail toEntity() {
     return TvDetail(
-      backdropPath: this.backdropPath,
-      firstAirDate: this.firstAirDate,
-      genres: this.genres.map((genre) => genre.toEntity()).toList(),
-      homepage: this.homepage,
-      id: this.id,
-      inProduction: this.inProduction,
-      lastAirDate: this.lastAirDate,
-      name: this.name,
-      nextEpisodeToAir: this.nextEpisodeToAir,
-      numberOfEpisodes: this.numberOfEpisodes,
-      numberOfSeasons: this.numberOfSeasons,
-      originalName: this.originalName,
-      overview: this.overview,
-      popularity: this.popularity,
-      posterPath: this.posterPath,
-      status: this.status,
-      tagline: this.tagline,
-      type: this.type,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount,
+      backdropPath: backdropPath,
+      firstAirDate: firstAirDate,
+      genres: genres.map((genre) => genre.toEntity()).toList(),
+      homepage: homepage,
+      id: id,
+      inProduction: inProduction,
+      lastAirDate: lastAirDate,
+      name: name,
+      nextEpisodeToAir: nextEpisodeToAir,
+      numberOfEpisodes: numberOfEpisodes,
+      numberOfSeasons: numberOfSeasons,
+      originalName: originalName,
+      overview: overview,
+      popularity: popularity,
+      posterPath: posterPath,
+      status: status,
+      tagline: tagline,
+      type: type,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
     );
   }
 

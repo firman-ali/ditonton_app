@@ -23,7 +23,7 @@ void main() {
 
   final tTv = TvSeries(
     backdropPath: '/path.jpg',
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     id: 1,
     overview: 'Overview',
     popularity: 1.0,
@@ -61,7 +61,7 @@ void main() {
   test('should return error when data is unsuccessful', () async {
     // arrange
     when(mockGetTopRatedTv.execute())
-        .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+        .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
     // act
     await notifier.fetchTopRatedTv();
     // assert

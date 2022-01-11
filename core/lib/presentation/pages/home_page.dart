@@ -82,12 +82,12 @@ class _HomePageState extends State<HomePage> {
         body: Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
           child: Column(
-            children: [
-              const TabBar(tabs: [
+            children: const [
+              TabBar(tabs: [
                 Tab(text: 'Movies'),
                 Tab(text: 'Tv Series'),
               ]),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               Expanded(
                 child: TabBarView(children: [
                   HomeMoviePage(),

@@ -7,6 +7,8 @@ import 'package:watchlist/presentation/providers/watchlist_tv_notifier.dart';
 class WatchlistMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist';
 
+  const WatchlistMoviesPage({Key? key}) : super(key: key);
+
   @override
   _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
 }
@@ -30,6 +32,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     Provider.of<WatchlistMovieNotifier>(context, listen: false)
         .fetchWatchlistMovies();
@@ -42,13 +45,13 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Watchlist'),
+          title: const Text('Watchlist'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              TabBar(tabs: [
+              const TabBar(tabs: [
                 Tab(text: 'Movies'),
                 Tab(text: 'Tv Series'),
               ]),
@@ -57,20 +60,20 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                   Consumer<WatchlistMovieNotifier>(
                     builder: (context, data, child) {
                       if (data.watchlistState == RequestState.Loading) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else if (data.watchlistState == RequestState.Loaded) {
                         return ListView.builder(
                           itemBuilder: (context, index) {
                             final movie = data.watchlistMovies[index];
-                            return MovieCard(movie);
+                            return MovieCard(movie: movie);
                           },
                           itemCount: data.watchlistMovies.length,
                         );
                       } else {
                         return Center(
-                          key: Key('error_message'),
+                          key: const Key('error_message'),
                           child: Text(data.message),
                         );
                       }
@@ -79,7 +82,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                   Consumer<WatchlistTvNotifier>(
                     builder: (context, data, child) {
                       if (data.watchlistState == RequestState.Loading) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else if (data.watchlistState == RequestState.Loaded) {
@@ -92,7 +95,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                         );
                       } else {
                         return Center(
-                          key: Key('error_message'),
+                          key: const Key('error_message'),
                           child: Text(data.message),
                         );
                       }

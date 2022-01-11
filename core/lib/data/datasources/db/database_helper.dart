@@ -15,9 +15,7 @@ class DatabaseHelper {
   static Database? _database;
 
   Future<Database?> get database async {
-    if (_database == null) {
-      _database = await _initDb();
-    }
+    _database ??= await _initDb();
     return _database;
   }
 
@@ -33,7 +31,8 @@ class DatabaseHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE  $_tblWatchlistMv (
         id INTEGER PRIMARY KEY,
         title TEXT,
@@ -41,7 +40,8 @@ class DatabaseHelper {
         posterPath TEXT
       );
     ''');
-    await db.execute('''
+    await db.execute(
+        '''
       CREATE TABLE  $_tblWatchlistTv (
         id INTEGER PRIMARY KEY,
         name TEXT,
