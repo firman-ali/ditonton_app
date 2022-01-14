@@ -1,29 +1,29 @@
 part of 'get_watchlist_bloc.dart';
 
-abstract class WatchlistMoviesState extends Equatable {
-  const WatchlistMoviesState();
+abstract class GetWatchlistMoviesState extends Equatable {
+  const GetWatchlistMoviesState();
 
   @override
   List<Object> get props => [];
 }
 
-class WatchlistMoviesEmpty extends WatchlistMoviesState {}
+class GetWatchlistMoviesEmpty extends GetWatchlistMoviesState {}
 
-class WatchlistMoviesLoading extends WatchlistMoviesState {}
+class GetWatchlistMoviesLoading extends GetWatchlistMoviesState {}
 
-class WatchlistMoviesError extends WatchlistMoviesState {
+class GetWatchlistMoviesError extends GetWatchlistMoviesState {
   final String message;
 
-  const WatchlistMoviesError(this.message);
+  const GetWatchlistMoviesError(this.message);
 
   @override
   List<Object> get props => [message];
 }
 
-class WatchlistMoviesHasData extends WatchlistMoviesState {
+class GetWatchlistMoviesHasData extends GetWatchlistMoviesState {
   final List<Movie> result;
 
-  const WatchlistMoviesHasData(this.result);
+  const GetWatchlistMoviesHasData(this.result);
 
   @override
   List<Object> get props => [result];

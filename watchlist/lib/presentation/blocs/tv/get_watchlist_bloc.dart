@@ -7,20 +7,25 @@ import 'package:watchlist/domain/usecases/get_watchlist_tv.dart';
 part 'get_watchlist_event.dart';
 part 'get_watchlist_state.dart';
 
-class GetWatchlistTvBloc extends Bloc<WatchlistTvEvent, WatchlistTvState> {
+class GetWatchlistTvBloc
+    extends Bloc<GetWatchlistTvEvent, GetWatchlistTvState> {
   final GetWatchlistTv _getWatchlistTv;
 
-  GetWatchlistTvBloc(this._getWatchlistTv) : super(WatchlistTvEmpty()) {
+  GetWatchlistTvBloc(this._getWatchlistTv) : super(GetWatchlistTvEmpty()) {
     on<GetAllWatchlistTv>((event, emit) async {
-      emit(WatchlistTvLoading());
+      emit(GetWatchlistTvLoading());
       final result = await _getWatchlistTv.execute();
 
       result.fold(
         (failure) {
-          emit(WatchlistTvError(failure.message));
+          emit(GetWatchlistTvError(failure.message));
         },
         (data) {
-          emit(WatchlistTvHasData(data));
+          if (data.isEmpty) {
+            emit(GetWatchlistTvEmpty());
+          } else {
+            emit(GetWatchlistTvHasData(data));
+          }
         },
       );
     });

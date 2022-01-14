@@ -41,11 +41,11 @@ export 'domain/usecases/get_top_rated_tv.dart';
 export 'domain/usecases/get_tv_detail.dart';
 export 'domain/usecases/get_tv_recommendations.dart';
 export 'domain/usecases/get_tv_watchlist_status.dart';
-export 'domain/usecases/get_watchlist_status.dart';
+export 'domain/usecases/get_movie_watchlist_status.dart';
 export 'domain/usecases/remove_tv_watchlist.dart';
-export 'domain/usecases/remove_watchlist.dart';
+export 'domain/usecases/remove_movie_watchlist.dart';
 export 'domain/usecases/save_tv_watchlist.dart';
-export 'domain/usecases/save_watchlist.dart';
+export 'domain/usecases/save_movie_watchlist.dart';
 
 export 'presentation/widgets/movie_card_list.dart';
 export 'presentation/widgets/tv_card_list.dart';
@@ -61,15 +61,18 @@ export 'presentation/pages/top_rated_movies_page.dart';
 export 'presentation/pages/top_rated_tv_page.dart';
 export 'presentation/pages/tv_detail_page.dart';
 
-export 'presentation/provider/movie_detail_notifier.dart';
-export 'presentation/provider/movie_list_notifier.dart';
-export 'presentation/provider/on_air_tv_notifier.dart';
-export 'presentation/provider/popular_movies_notifier.dart';
-export 'presentation/provider/popular_tv_notifier.dart';
-export 'presentation/provider/top_rated_movies_notifier.dart';
-export 'presentation/provider/top_rated_tv_notifier.dart';
-export 'presentation/provider/tv_detail_notifier.dart';
-export 'presentation/provider/tv_list_notifier.dart';
+export 'presentation/blocs/movies/now_playing/now_playing_bloc.dart';
+export 'presentation/blocs/movies/popular/popular_bloc.dart';
+export 'presentation/blocs/movies/top_rated/top_rated_bloc.dart';
+export 'presentation/blocs/movies/detail/detail_bloc.dart';
+export 'presentation/blocs/movies/watchlist_status/watchlist_status_bloc.dart';
+
+export 'presentation/blocs/tv/airing_today/airing_today_bloc.dart';
+export 'presentation/blocs/tv/on_air/on_air_bloc.dart';
+export 'presentation/blocs/tv/popular/popular_bloc.dart';
+export 'presentation/blocs/tv/top_rated/top_rated_bloc.dart';
+export 'presentation/blocs/tv/detail/detail_bloc.dart';
+export 'presentation/blocs/tv/watchlist_status/watchlist_status_bloc.dart';
 
 export 'data/models/genre_model.dart';
 export 'data/models/movie_detail_model.dart';

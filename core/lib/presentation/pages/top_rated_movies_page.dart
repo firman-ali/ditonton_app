@@ -1,24 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TopRatedMoviesPage extends StatefulWidget {
+class TopRatedMoviesPage extends StatelessWidget {
   static const routeName = '/top-rated-movie';
 
   const TopRatedMoviesPage({Key? key}) : super(key: key);
-
-  @override
-  _TopRatedMoviesPageState createState() => _TopRatedMoviesPageState();
-}
-
-class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +15,28 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.isLoading) {
+        child: BlocBuilder<GetTopRatedMovieBloc, TopRatedMoviesState>(
+          builder: (context, state) {
+            if (state is GetTopRatedMoviesLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.isLoaded) {
+            } else if (state is GetTopRatedMoviesHasData) {
+              final result = state.result;
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = result[index];
                   return MovieCard(movie: movie);
                 },
-                itemCount: data.movies.length,
+                itemCount: result.length,
               );
-            } else {
+            } else if (state is GetTopRatedMoviesError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),

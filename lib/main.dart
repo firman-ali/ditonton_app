@@ -5,7 +5,6 @@ import 'package:search/search.dart';
 import 'package:watchlist/watchlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 
 void main() {
@@ -16,13 +15,43 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<DetailMovieBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistStatusMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetNowPlayingMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetPopularMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetTopRatedMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<SearchMoviesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<DetailTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistStatusTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetAiringTodayTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetOnAirTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetPopularTvBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<GetTopRatedTvBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<SearchMoviesBloc>(),
@@ -35,27 +64,6 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<GetWatchlistTvBloc>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<OnAirTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvNotifier>(),
         ),
       ],
       child: MaterialApp(
@@ -96,8 +104,8 @@ class MyApp extends StatelessWidget {
               );
             case SearchPage.routeName:
               return CupertinoPageRoute(builder: (_) => SearchPage());
-            case WatchlistMoviesPage.routeName:
-              return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
+            case WatchlistPage.routeName:
+              return MaterialPageRoute(builder: (_) => WatchlistPage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:

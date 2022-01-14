@@ -38,8 +38,8 @@ class SearchPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const TabBar(tabs: [
-                Tab(text: 'Result Movies'),
-                Tab(text: 'Result Tv Series'),
+                Tab(key: Key('movie_tab'), text: 'Result Movies'),
+                Tab(key: Key('tv_tab'), text: 'Result Tv Series'),
               ]),
               Expanded(
                 child: TabBarView(
@@ -53,6 +53,7 @@ class SearchPage extends StatelessWidget {
                         } else if (state is SearchMoviesHasData) {
                           final result = state.result;
                           return ListView.builder(
+                            key: const Key('list_movie_search'),
                             padding: const EdgeInsets.all(8),
                             itemBuilder: (context, index) {
                               final movie = result[index];
@@ -61,13 +62,20 @@ class SearchPage extends StatelessWidget {
                             itemCount: result.length,
                           );
                         } else if (state is SearchMoviesError) {
-                          return Expanded(
-                            child: Center(
-                              child: Text(state.message),
-                            ),
+                          return Center(
+                            key: const Key('error_movie_message'),
+                            child: Text(state.message),
+                          );
+                        } else if (state is SearchMoviesEmpty) {
+                          return const Center(
+                            key: Key('empty_movie_message'),
+                            child: Text('Your Movie Was Not Found'),
                           );
                         } else {
-                          return Container();
+                          return const Center(
+                            key: Key('waiting_movie_message'),
+                            child: Text('Search Your Movie'),
+                          );
                         }
                       },
                     ),
@@ -88,13 +96,20 @@ class SearchPage extends StatelessWidget {
                             itemCount: result.length,
                           );
                         } else if (state is SearchTvsError) {
-                          return Expanded(
-                            child: Center(
-                              child: Text(state.message),
-                            ),
+                          return Center(
+                            key: const Key('error_tv_message'),
+                            child: Text(state.message),
+                          );
+                        } else if (state is SearchTvsEmpty) {
+                          return const Center(
+                            key: Key('empty_tv_message'),
+                            child: Text('Your Tv Series Was Not Found'),
                           );
                         } else {
-                          return Container();
+                          return const Center(
+                            key: Key('waiting_tv_message'),
+                            child: Text('Search Your Tv Series'),
+                          );
                         }
                       },
                     ),

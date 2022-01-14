@@ -1,8 +1,4 @@
-import 'package:core/presentation/pages/home_movie_page.dart';
-import 'package:core/presentation/pages/home_tv_page.dart';
-import 'package:core/presentation/provider/movie_list_notifier.dart';
-import 'package:core/presentation/provider/tv_list_notifier.dart';
-import 'package:core/utils/routes.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,16 +13,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<MovieListNotifier>(context, listen: false)
-          ..fetchNowPlayingMovies()
-          ..fetchPopularMovies()
-          ..fetchTopRatedMovies());
-    Future.microtask(() => Provider.of<TvListNotifier>(context, listen: false)
-      ..fetchAiringTodayTv()
-      ..fetchOnAirTv()
-      ..fetchPopularTv()
-      ..fetchTopRatedTv());
+    Future.microtask(() {
+      context.read<GetNowPlayingMovieBloc>().add(GetAllNowPlayingMovies());
+      context.read<GetPopularMovieBloc>().add(GetAllPopularMovies());
+      context.read<GetTopRatedMovieBloc>().add(GetAllTopRatedMovies());
+    });
+    Future.microtask(() {
+      context.read<GetAiringTodayTvBloc>().add(GetAllAiringTodayTv());
+      context.read<GetOnAirTvBloc>().add(GetAllOnAirTv());
+      context.read<GetPopularTvBloc>().add(GetAllPopularTv());
+      context.read<GetTopRatedTvBloc>().add(GetAllTopRatedTv());
+    });
   }
 
   @override

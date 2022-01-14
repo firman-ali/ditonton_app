@@ -4,17 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchlist/presentation/blocs/movies/get_watchlist_bloc.dart';
 import 'package:watchlist/presentation/blocs/tv/get_watchlist_bloc.dart';
 
-class WatchlistMoviesPage extends StatefulWidget {
+class WatchlistPage extends StatefulWidget {
   static const routeName = '/watchlist';
 
-  const WatchlistMoviesPage({Key? key}) : super(key: key);
+  const WatchlistPage({Key? key}) : super(key: key);
 
   @override
   _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
 }
 
-class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
-    with RouteAware {
+class _WatchlistMoviesPageState extends State<WatchlistPage> with RouteAware {
   @override
   void initState() {
     super.initState();
@@ -54,13 +53,13 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               ]),
               Expanded(
                 child: TabBarView(children: [
-                  BlocBuilder<GetWatchlistMoviesBloc, WatchlistMoviesState>(
+                  BlocBuilder<GetWatchlistMoviesBloc, GetWatchlistMoviesState>(
                     builder: (context, state) {
-                      if (state is WatchlistMoviesLoading) {
+                      if (state is GetWatchlistMoviesLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state is WatchlistMoviesHasData) {
+                      } else if (state is GetWatchlistMoviesHasData) {
                         final result = state.result;
                         return ListView.builder(
                           itemBuilder: (context, index) {
@@ -69,25 +68,26 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                           },
                           itemCount: result.length,
                         );
-                      } else if (state is WatchlistMoviesError) {
-                        return Expanded(
-                          child: Center(
-                            key: const Key('error_message'),
-                            child: Text(state.message),
-                          ),
+                      } else if (state is GetWatchlistMoviesError) {
+                        return Center(
+                          key: const Key('error_movies_message'),
+                          child: Text(state.message),
                         );
                       } else {
-                        return Container();
+                        return const Center(
+                          key: Key('empty_movies_message'),
+                          child: Text('You Don`t Have A Watchlist Movies'),
+                        );
                       }
                     },
                   ),
-                  BlocBuilder<GetWatchlistTvBloc, WatchlistTvState>(
+                  BlocBuilder<GetWatchlistTvBloc, GetWatchlistTvState>(
                     builder: (context, state) {
-                      if (state is WatchlistTvLoading) {
+                      if (state is GetWatchlistTvLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (state is WatchlistTvHasData) {
+                      } else if (state is GetWatchlistTvHasData) {
                         final result = state.result;
                         return ListView.builder(
                           itemBuilder: (context, index) {
@@ -97,15 +97,20 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                           itemCount: result.length,
                         );
                       }
-                      if (state is WatchlistTvError) {
+                      if (state is GetWatchlistTvError) {
                         return Expanded(
                           child: Center(
-                            key: const Key('error_message'),
+                            key: const Key('error_tv_message'),
                             child: Text(state.message),
                           ),
                         );
                       } else {
-                        return Container();
+                        return const Expanded(
+                          child: Center(
+                            key: Key('empty_tv_message'),
+                            child: Text('You Don`t Have A Watchlist Tv Series'),
+                          ),
+                        );
                       }
                     },
                   ),

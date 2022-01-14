@@ -10,7 +10,7 @@ part 'search_state.dart';
 class SearchTvBloc extends Bloc<SearchTvsEvent, SearchTvsState> {
   final SearchTv _searchTvs;
 
-  SearchTvBloc(this._searchTvs) : super(SearchTvsEmpty()) {
+  SearchTvBloc(this._searchTvs) : super(WaitingSearchTv()) {
     on<OnTvsQueryChanged>((event, emit) async {
       final query = event.query;
 
@@ -22,7 +22,11 @@ class SearchTvBloc extends Bloc<SearchTvsEvent, SearchTvsState> {
           emit(SearchTvsError(failure.message));
         },
         (data) {
-          emit(SearchTvsHasData(data));
+          if (data.isEmpty) {
+            emit(SearchTvsEmpty());
+          } else {
+            emit(SearchTvsHasData(data));
+          }
         },
       );
     });

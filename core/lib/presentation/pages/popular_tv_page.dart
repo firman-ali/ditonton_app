@@ -1,24 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PopularTvPage extends StatefulWidget {
+class PopularTvPage extends StatelessWidget {
   static const routeName = '/popular-tv';
 
   const PopularTvPage({Key? key}) : super(key: key);
-
-  @override
-  _PopularTvPageState createState() => _PopularTvPageState();
-}
-
-class _PopularTvPageState extends State<PopularTvPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvNotifier>(context, listen: false)
-            .fetchPopularTv());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +15,28 @@ class _PopularTvPageState extends State<PopularTvPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.isLoading) {
+        child: BlocBuilder<GetPopularTvBloc, PopularTvState>(
+          builder: (context, state) {
+            if (state is GetPopularTvLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.isLoaded) {
+            } else if (state is GetPopularTvHasData) {
+              final result = state.result;
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.tvSeries[index];
+                  final movie = result[index];
                   return TvCard(movie);
                 },
-                itemCount: data.tvSeries.length,
+                itemCount: result.length,
               );
-            } else {
+            } else if (state is GetPopularTvError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),

@@ -1,29 +1,29 @@
 part of 'get_watchlist_bloc.dart';
 
-abstract class WatchlistTvState extends Equatable {
-  const WatchlistTvState();
+abstract class GetWatchlistTvState extends Equatable {
+  const GetWatchlistTvState();
 
   @override
   List<Object> get props => [];
 }
 
-class WatchlistTvEmpty extends WatchlistTvState {}
+class GetWatchlistTvEmpty extends GetWatchlistTvState {}
 
-class WatchlistTvLoading extends WatchlistTvState {}
+class GetWatchlistTvLoading extends GetWatchlistTvState {}
 
-class WatchlistTvError extends WatchlistTvState {
+class GetWatchlistTvError extends GetWatchlistTvState {
   final String message;
 
-  const WatchlistTvError(this.message);
+  const GetWatchlistTvError(this.message);
 
   @override
   List<Object> get props => [message];
 }
 
-class WatchlistTvHasData extends WatchlistTvState {
+class GetWatchlistTvHasData extends GetWatchlistTvState {
   final List<TvSeries> result;
 
-  const WatchlistTvHasData(this.result);
+  const GetWatchlistTvHasData(this.result);
 
   @override
   List<Object> get props => [result];

@@ -1,11 +1,11 @@
 part of 'get_watchlist_bloc.dart';
 
-abstract class WatchlistTvEvent extends Equatable {
+abstract class GetWatchlistTvEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
 
-class GetAllWatchlistTv extends WatchlistTvEvent {
+class GetAllWatchlistTv extends GetWatchlistTvEvent {
   @override
   List<Object> get props => [];
 }
