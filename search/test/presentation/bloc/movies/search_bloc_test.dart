@@ -6,6 +6,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:search/search.dart';
 
+import '../../../../../test/dummy_data/dummy_objects.dart';
 import 'search_bloc_test.mocks.dart';
 
 @GenerateMocks([SearchMovies])
@@ -18,28 +19,30 @@ void main() {
     searchBloc = SearchMoviesBloc(mockSearchMovies);
   });
 
-  test('initial state should be empty', () {
-    expect(searchBloc.state, SearchMoviesEmpty());
+  final tMovieList = <Movie>[testMovie];
+  const tQuery = 'spiderman';
+
+  test('initial state should be waiting', () {
+    expect(searchBloc.state, WaitingSearchMovie());
   });
 
-  const tMovieModel = Movie(
-    adult: false,
-    backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-    genreIds: [14, 28],
-    id: 557,
-    originalTitle: 'Spider-Man',
-    overview:
-        'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
-    popularity: 60.441,
-    posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-    releaseDate: '2002-05-01',
-    title: 'Spider-Man',
-    video: false,
-    voteAverage: 7.2,
-    voteCount: 13507,
+  blocTest<SearchMoviesBloc, SearchMoviesState>(
+    'Should emit [Loading, Empty] when data is gotten successfully',
+    build: () {
+      when(mockSearchMovies.execute(tQuery))
+          .thenAnswer((_) async => const Right([]));
+      return searchBloc;
+    },
+    act: (bloc) => bloc.add(const OnMoviesQueryChanged(tQuery)),
+    wait: const Duration(milliseconds: 100),
+    expect: () => [
+      SearchMoviesLoading(),
+      SearchMoviesEmpty(),
+    ],
+    verify: (bloc) {
+      verify(mockSearchMovies.execute(tQuery));
+    },
   );
-  final tMovieList = <Movie>[tMovieModel];
-  const tQuery = 'spiderman';
 
   blocTest<SearchMoviesBloc, SearchMoviesState>(
     'Should emit [Loading, HasData] when data is gotten successfully',

@@ -6,6 +6,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:search/search.dart';
 
+import '../../../../../test/dummy_data/dummy_objects.dart';
 import 'search_bloc_test.mocks.dart';
 
 @GenerateMocks([SearchTv])
@@ -18,26 +19,30 @@ void main() {
     searchBloc = SearchTvBloc(mockSearchTvs);
   });
 
-  test('initial state should be empty', () {
-    expect(searchBloc.state, SearchTvsEmpty());
+  test('initial state should be waiting', () {
+    expect(searchBloc.state, WaitingSearchTv());
   });
 
-  const tTvModel = TvSeries(
-    backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-    genreIds: [14, 28],
-    id: 557,
-    originalName: 'Spider-Man',
-    overview:
-        'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
-    popularity: 60.441,
-    posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-    name: 'Spider-Man',
-    voteAverage: 7.2,
-    voteCount: 13507,
-    originalLanguage: '',
-  );
-  final tTvList = <TvSeries>[tTvModel];
+  final tTvList = <TvSeries>[testTv];
   const tQuery = 'spiderman';
+
+  blocTest<SearchTvBloc, SearchTvsState>(
+    'Should emit [Loading, Empty] when data is gotten successfully',
+    build: () {
+      when(mockSearchTvs.execute(tQuery))
+          .thenAnswer((_) async => const Right([]));
+      return searchBloc;
+    },
+    act: (bloc) => bloc.add(const OnTvsQueryChanged(tQuery)),
+    wait: const Duration(milliseconds: 100),
+    expect: () => [
+      SearchTvsLoading(),
+      SearchTvsEmpty(),
+    ],
+    verify: (bloc) {
+      verify(mockSearchTvs.execute(tQuery));
+    },
+  );
 
   blocTest<SearchTvBloc, SearchTvsState>(
     'Should emit [Loading, HasData] when data is gotten successfully',
