@@ -29,7 +29,7 @@ void main() {
   blocTest<GetWatchlistTvBloc, GetWatchlistTvState>(
     'Should emit [Loading, Empty] when data is gotten successfully',
     build: () {
-      when(mockWatchlistTv.execute()).thenAnswer((_) async => Right([]));
+      when(mockWatchlistTv.execute()).thenAnswer((_) async => const Right([]));
       return watchlistBloc;
     },
     act: (bloc) => bloc.add(GetAllWatchlistTv()),

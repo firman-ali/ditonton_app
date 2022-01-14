@@ -69,8 +69,10 @@ void main() {
 
     testWidgets('search query should call bloc success',
         (WidgetTester tester) async {
-      when(mockSearchMovies.execute(tQuery)).thenAnswer((_) async => Right([]));
-      when(mockSearchTv.execute(tQuery)).thenAnswer((_) async => Right([]));
+      when(mockSearchMovies.execute(tQuery))
+          .thenAnswer((_) async => const Right([]));
+      when(mockSearchTv.execute(tQuery))
+          .thenAnswer((_) async => const Right([]));
 
       await tester.pumpWidget(_makeTestableWidget());
       await tester.enterText(find.byType(TextField), tQuery);
