@@ -1,13 +1,42 @@
-import 'package:about/about.dart';
-import 'package:core/core.dart';
+import 'package:ditonton/common/colors.dart';
+import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/ssl_pinning.dart';
+import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/presentation/blocs/movies/detail_bloc.dart';
+import 'package:ditonton/presentation/blocs/movies/get_watchlist_bloc.dart';
+import 'package:ditonton/presentation/blocs/movies/now_playing_bloc.dart';
+import 'package:ditonton/presentation/blocs/movies/popular_bloc.dart';
+import 'package:ditonton/presentation/blocs/movies/search_bloc.dart';
+import 'package:ditonton/presentation/blocs/movies/top_rated_bloc.dart';
+import 'package:ditonton/presentation/blocs/movies/watchlist_status_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/airing_today_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/detail_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/get_watchlist_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/on_air_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/popular_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/search_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/top_rated_bloc.dart';
+import 'package:ditonton/presentation/blocs/tv/watchlist_status_bloc.dart';
+import 'package:ditonton/presentation/page/about_page.dart';
+import 'package:ditonton/presentation/page/home_movie_page.dart';
+import 'package:ditonton/presentation/page/home_page.dart';
+import 'package:ditonton/presentation/page/movie_detail_page.dart';
+import 'package:ditonton/presentation/page/on_air_tv_page.dart';
+import 'package:ditonton/presentation/page/popular_movies_page.dart';
+import 'package:ditonton/presentation/page/popular_tv_page.dart';
+import 'package:ditonton/presentation/page/search_page.dart';
+import 'package:ditonton/presentation/page/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/page/top_rated_tv_page.dart';
+import 'package:ditonton/presentation/page/tv_detail_page.dart';
+import 'package:ditonton/presentation/page/watchlist_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:search/search.dart';
-import 'package:watchlist/watchlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ditonton/injection.dart' as di;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HttpSSLPinning.init();
   di.init();
   runApp(MyApp());
 }
